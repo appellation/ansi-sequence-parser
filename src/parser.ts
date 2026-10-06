@@ -16,9 +16,9 @@ function findSequence(value: string, position: number) {
   const match = CSI_SEQUENCE.exec(value);
   if (match) {
     const [, parameters, intermediates, final] = match;
-    // only plain SGR sequences affect styling, private (e.g. ESC [ > 4 ; 1 m)
-    // and other sequences are consumed without effect
-    const isSgr = final === 'm' && !intermediates && !/^[<=>?]/.test(parameters);
+    // only plain SGR sequences affect styling: private (e.g. ESC [ > 4 ; 1 m),
+    // malformed (e.g. ESC [ 3 1 ? m), and other sequences are consumed without effect
+    const isSgr = final === 'm' && !intermediates && !/[<=>?]/.test(parameters);
     return {
       sequence: isSgr ? parameters.split(';') : [],
       startPosition: match.index,

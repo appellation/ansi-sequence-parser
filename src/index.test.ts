@@ -813,6 +813,7 @@ test('non-SGR sequence does not consume text up to the next m', () => {
 
 test.each([
   ['private SGR (modifyOtherKeys)', '\u001b[>4;1m'],
+  ['private marker after parameters', '\u001b[31?m'],
   ['intermediate byte (cursor style)', '\u001b[2 q'],
   ['final byte @ (insert characters)', '\u001b[3@'],
   ['final byte ~ (bracketed paste)', '\u001b[200~'],
